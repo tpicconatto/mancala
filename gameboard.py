@@ -1,7 +1,6 @@
 class Gameboard:
     board = [4,4,4,4,4,4],[4,4,4,4,4,4]
     ends = [0,0]
-    print ("h")
     def __str__(self):
         stringV = str(self.ends[0])+"["
         for i in range(len(self.board)):
