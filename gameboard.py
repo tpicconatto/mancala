@@ -27,7 +27,7 @@ class Gameboard:
             return "Tie"
 
     def play(self, player, index, quantity):
-        if player == "Player 1":
+        if player.getNumber() == "Player 1":
             for i in range(quantity):
                 if index > 0:
                     self.board[0][index] += 1
@@ -36,7 +36,7 @@ class Gameboard:
                 else:
                     self.board[1][abs(index) + 2] += 1
                 index -= 1
-        if player == "Player 2":
+        if player.getNumber() == 2:
             for i in range(quantity):
                 if index > 0:
                     self.board[1][index] += 1
