@@ -9,6 +9,8 @@ class Gameboard:
             stringV = stringV + "\n"
         stringV = stringV + "]"+str(self.ends[1])
         return stringV
+    def getValue(self, a ,b):
+        return self.board[a][b]
     def isWinner(self): #Determines if someone one
         if self.board[0].count(0) == len(self.board[0]):
             return True
@@ -16,11 +18,6 @@ class Gameboard:
             return True
         else:
             return False
-    def addRemaining(self): #Adds up all remaining points after game ends
-        for i in range(len(self.board[0])):
-            self.ends[0] = self.ends[0] + self.board[0][i]
-        for j in range(len(self.board[1])):
-            self.ends[1] = self.ends[1] + self.board[0][j]
     def findWinner(self):
         if self.ends[1]> self.ends[2]:
             return "Player 1 WINS"
@@ -28,4 +25,3 @@ class Gameboard:
             return "Player 2 WINS"
         else:
             return "Tie"
-

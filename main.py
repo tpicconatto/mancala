@@ -1,3 +1,5 @@
 from gameboard import Gameboard
 gameboard = Gameboard()
-print(gameboard)
+def play(self):
+      print(gameboard)
+      index = int(input("Player 1 Enter Index Choice"))
