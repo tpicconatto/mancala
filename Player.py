@@ -8,7 +8,7 @@ class Player(ABC):
     @abstractmethod
     def move(self):
         pass
-class Human(Player):
+class Human(Player)u:
     def move(self):
         hole = int(input("Please Enter Index of Hole"))
         return hole
