@@ -51,10 +51,11 @@ class Gameboard:
             for i in range(quantity-1): #keeps going number of beads
                 if index > 0:
                     self.board[0][index] += 1
-                if index == -1:
+
+                elif index == -1:
                     self.ends[0] += 1
                 else:
-                    if abs(index)>=len(self.board[0]):
+                    if abs(index)>=len(self.board[0])-2:
                         self.board[0][len(self.board[0])-1] += 1
                         index = len(self.board[0])-2
                     else:
@@ -66,7 +67,37 @@ class Gameboard:
                 if self.board[0][index] == 0:
                     side = 0
                     self.capture(self,player,side,index)
-            elif index <
+                    return 1
+            elif index < 0:
+                side = 1
+                self.capture(self, player, side, abs(index))
+
+
+        if player.getNumber() == 2:  # for player 2
+            for i in range(quantity - 1):  # keeps going number of beads
+                if index > 0:
+                    self.board[1][index] += 1
+                elif index == len(self.board[1]):
+                    self.ends[1] += 1
+                    index = -(len(self.board[1])-1)
+                elif index<0:
+                    if index==-1:
+                        self.board[1][0]+=1
+                        index = 2
+                    else:
+                        self.board[0][abs(index)] += 1
+                index += 1
+            if self.goAgain(index):
+                return -1
+            elif index > 0:
+                if self.board[0][index] == 0:
+                    side = 1
+                    self.capture(self, player, side, index)
+                    return 1
+            elif index < 0:
+                side = 0
+                self.capture(self, player, side, abs(index))
+
 
         if player.getNumber() == 2:
             for i in range(quantity-1):
