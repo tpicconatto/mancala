@@ -66,7 +66,13 @@ class Gameboard:
                 if self.board[0][index] == 0:
                     side = 0
                     self.capture(self,player,side,index)
-            elif index <
+                    return 1
+            elif index < 0:
+                if self.board[0][abs(index)+2] == 0:
+                    side = 1
+                    self.capture(self,player,side,abs(index)+2)
+                    return 1
+
 
         if player.getNumber() == 2:
             for i in range(quantity-1):
@@ -74,10 +80,25 @@ class Gameboard:
                     self.board[1][index] += 1
                 if index > len(self.board[1]):
                     self.ends[1] += 1
-                    index = -len(self.board1)
+                    index = -len(self.board[1]+1)
                 else:
-                    self.board[0][abs(index)] += 1
+                    if index == -2:
+                        self.board[1][0]+=1
+                        index = 1
+                    self.board[0][abs(index)+2] += 1
                 index += 1
+            if self.goAgain(index):
+                return -1
+            elif index > 0:
+                if self.board[1][index] == 0:
+                    side = 1
+                    self.capture(self, player, side, index)
+                    return 1
+            elif index < 0:
+                if self.board[0][abs(index) + 2] == 0:
+                    side = 0
+                    self.capture(self, player, side, abs(index) + 2)
+                    return 1
 
     def addRemaining(self):  # Adds up all remaining points after game ends
             for i in range(len(self.board[0])):
