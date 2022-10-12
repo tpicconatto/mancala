@@ -48,6 +48,7 @@ class Gameboard:
 
     def play(self, player, index, quantity):
         if player.getNumber() == 1: #for player 1
+            index -=1
             for i in range(quantity-1): #keeps going number of beads
                 if index > 0:
                     self.board[0][index] += 1
@@ -72,9 +73,14 @@ class Gameboard:
                     side = 1
                     self.capture(self,player,side,abs(index)+2)
                     return 1
+                else:
+                    self.board[1][abs(index)+2]+=1
+                    return 1
 
-
+                #
+                #
         if player.getNumber() == 2:
+            index+=1
             for i in range(quantity-1):
                 if index > 0:
                     self.board[1][index] += 1
