@@ -9,13 +9,13 @@ def Game(P1, P2):
     while (gameboard.isWinner()== False): #alternate players making a move, if there is a winner after each move exit while loop and find winner
         print(gameboard)
         index = P1.move()
-        P1.play(P1,index,gameboard.getValue(0,index))
+        gameboard.play(P1,index,gameboard.getValue(0,index))
         print(gameboard)
         if(gameboard.isWinner()== True):
             gameboard.addRemaning()
             break
         index = P2.move()
-        P2.play(P2,index,gameboard.getValue(1,index))
+        gameboard.play(P2,index,gameboard.getValue(1,index))
         if (gameboard.isWinner() == True):
             gameboard.addRemaining()
             break
