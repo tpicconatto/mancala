@@ -34,7 +34,7 @@ class Gameboard:
             return True
         else:
             return False
-    def capture(self,player,index):
+    def capture(self,player,side,index):
         if player.getNumber == 1:
             if numOpp != 0:
                 while numOpp in self.board[1]:
@@ -54,9 +54,11 @@ class Gameboard:
                 if index == -1:
                     self.ends[0] += 1
                 else:
-                  if abs(index)>=len(self.board[0]):
-                      self.board
-                    self.board[1][abs(index) + 2] += 1
+                    if abs(index)>=len(self.board[0]):
+                        self.board[0][len(self.board[0])-1] += 1
+                        index = len(self.board[0])-2
+                    else:
+                        self.board[1][abs(index) + 2] += 1
                 index -= 1
             if self.goAgain(index):
                 return -1
