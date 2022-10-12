@@ -1,4 +1,4 @@
-from gameboard import gameboard
+from gameboard import Gameboard
 gameboard = Gameboard()
 def play(self):
       print(gameboard)
