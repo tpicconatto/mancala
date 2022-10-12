@@ -25,19 +25,49 @@ class Gameboard:
             return "Player 2 WINS"
         else:
             return "Tie"
+    def goAgain(self,index):
+        if index > len(self.board[1]):
+            self.ends[1] += 1
+            return True
+        elif index == -1:
+            self.ends[0] += 1
+            return True
+        else:
+            return False
+    def capture(self,player,index):
+        if player.getNumber == 1:
+            if numOpp != 0:
+                while numOpp in self.board[1]:
+                    self.ends[1] += numOpp
+                    newIn = self.board[0].index(numOpp)
+                    self.board[0].pop(newIn)
+                    self.board.insert(newIn, 0)
+            else:
+                self.board[0][index] = 1
+
 
     def play(self, player, index, quantity):
-        if player.getNumber() == "Player 1":
-            for i in range(quantity):
+        if player.getNumber() == 1: #for player 1
+            for i in range(quantity-1): #keeps going number of beads
                 if index > 0:
                     self.board[0][index] += 1
                 if index == -1:
                     self.ends[0] += 1
                 else:
+                  if abs(index)>=len(self.board[0]):
+                      self.board
                     self.board[1][abs(index) + 2] += 1
                 index -= 1
+            if self.goAgain(index):
+                return -1
+            elif index > 0:
+                if self.board[0][index] == 0:
+                    side = 0
+                    self.capture(self,player,side,index)
+            elif index <
+
         if player.getNumber() == 2:
-            for i in range(quantity):
+            for i in range(quantity-1):
                 if index > 0:
                     self.board[1][index] += 1
                 if index > len(self.board[1]):
