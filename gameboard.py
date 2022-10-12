@@ -11,7 +11,7 @@ class Gameboard:
         return stringV
     def getValue(self, a ,b):
         return self.board[a][b]
-    def isWinner(self): #Determines if someone one
+    def isWinner(self): #Determines if someone won
         if self.board[0].count(0) == len(self.board[0]):
             return True
         elif self.board[1].count(0) == len(self.board[1]):
