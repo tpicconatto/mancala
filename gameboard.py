@@ -27,10 +27,8 @@ class Gameboard:
             return "Tie"
     def goAgain(self,index):
         if index > len(self.board[1]):
-            self.ends[1] += 1
             return True
-        elif index == -1:
-            self.ends[0] += 1
+        elif index == -2:
             return True
         else:
             return False
@@ -67,14 +65,15 @@ class Gameboard:
                         self.board[1][abs(index) + 2] += 1
                 index -= 1
             print(self)
+            print("index=",index, "quantity=", quantity)
             if self.goAgain(index):
                 return -1
-            elif index >= 0:
+            elif index+1 >= 0:
                 if self.board[0][index] == 0:
                     side = 0
                     self.capture(self,player,side,index)
                     return 1
-            elif index < 0:
+            elif index+1 < 0:
                 if self.board[0][abs(index)+2] == 0:
                     side = 1
                     self.capture(self,player,side,abs(index)+2)
