@@ -52,6 +52,7 @@ class Gameboard:
             index -=1
             for i in range(quantity-1): #keeps going number of beads
                 print(self)
+                print(index)
                 if index >= 0:
                     self.board[0][index] += 1
                 elif index == -1:
