@@ -26,7 +26,7 @@ class Gameboard:
         else:
             return "Tie"
     def goAgain(self,index):
-        if index > len(self.board[1]):
+        if index >= len(self.board[1]):
             return True
         elif index == -2:
             return True
@@ -91,8 +91,8 @@ class Gameboard:
                     print(self)
                     print("index=", index, "i=", i, "quantity=", quantity)
 
-                    if index < len(self.board[1])-1:
-                        self.board[1][index+1] += 1
+                    if index <= len(self.board[1])-1:
+                        self.board[1][index] += 1
                     elif index == len(self.board[1]):
                         self.ends[1] += 1
                     else:
