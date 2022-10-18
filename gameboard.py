@@ -28,7 +28,7 @@ class Gameboard:
         else:
             return "Tie"
     def goAgain(self,index):
-        if index > len(self.board[1]):
+        if index >= len(self.board[1]):
             return True
         elif index == -2:
             return True
@@ -125,20 +125,23 @@ class Gameboard:
             ogIndex = index
             self.board[1][ogIndex] = 0
             if player.getNumber() == 2:  # for player 2
+                odd = 0
+                index+=1
                 for i in range(quantity):  # keeps going number of beads
                     print(self)
                     print("index=", index, "i=", i, "quantity=", quantity)
 
-                    if index < len(self.board[1])-1:
-                        self.board[1][index+1] += 1
+                    if index <= len(self.board[1])-1:
+                        self.board[1][index] += 1
                     elif index == len(self.board[1]):
                         self.ends[1] += 1
                     else:
-                        if abs(index) > len(self.board[1])+1:
-                            self.board[1][len(self.board[1]) + 1] += 1
+                        if abs(index) > len(self.board[1])*2+1:
                             index = 0
-                        else:
                             self.board[0][abs(index)] += 1
+                        elif index >len(self.board[1]):
+                            odd+=2
+                            self.board[0][abs(index)-odd] += 1
                     index += 1
                 print(self)
                 print("index=", index, "quantity=", quantity)
