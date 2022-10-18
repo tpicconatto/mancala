@@ -13,8 +13,10 @@ class Gameboard:
         return self.board[a][b]
     def isWinner(self): #Determines if someone won
         if self.board[0].count(0) == len(self.board[0]):
+            print("finding winner")
             return True
         elif self.board[1].count(0) == len(self.board[1]):
+            print("finding winner")
             return True
         else:
             return False
@@ -32,16 +34,48 @@ class Gameboard:
             return True
         else:
             return False
-    def capture(self,player,side,index):
-        if player.getNumber == 1:
+    def capture(self,player,side,index,numOpp):
+        print("into capture")
+        print(str(player.getNumber()))
+        print(str(numOpp))
+        print(str(index))
+        if player.getNumber() == 1:
             if numOpp != 0:
-                while numOpp in self.board[1]:
-                    self.ends[1] += numOpp
+                print("into capture")
+                if side==1:
+                    print("into capture")
+                    self.ends[0] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
-                    self.board.insert(newIn, 0)
-            else:
-                self.board[0][index] = 1
+                    self.board[0].insert(newIn, 0)
+                    print(self)
+                    self.ends[0]+=self.board[1][index]
+                    self.board[1].pop(index)
+                    self.board[1].insert(index,0)
+                    print(self)
+                else:
+                    self.ends[0] += numOpp
+                    newIn = self.board[1].index(numOpp)
+                    self.board[1].pop(newIn)
+                    self.board[1].insert(newIn, 0)
+
+                    self.ends[0] += self.board[0][index]
+                    self.board[1].pop(index)
+                    self.board[1].insert(index, 0)
+                while numOpp in self.board[0]:
+                    print("enter loop")
+                    self.ends[0] += numOpp
+                    newIn = self.board[0].index(numOpp)
+                    self.board[0].pop(newIn)
+                    self.board[0].insert(newIn, 0)
+                while numOpp in self.board[1]:
+                    print("enter loop two")
+                    self.ends[0] += numOpp
+                    newIn = self.board[1].index(numOpp)
+                    self.board[1].pop(newIn)
+                    self.board[1].insert(newIn, 1)
+        print("finish capture")
+        print(self)
 
 
     def play(self, player, index, quantity):
@@ -68,19 +102,23 @@ class Gameboard:
             print("index=",index, "quantity=", quantity)
             if self.goAgain(index):
                 return -1
-            elif index+1 >= 0:
-                if self.board[0][index] == 0:
+            #capture
+            elif index >= 0:
+                if self.board[0][index+1] == 1:
                     side = 0
-                    self.capture(self,player,side,index)
-                    return 1
-            elif index+1 < 0:
-                if self.board[1][abs(index)-2] == 0:
+                    numOpp = self.board[1][index+1]
+                    self.capture(self,player,side,index,numOpp)
+                return 1
+            elif index < 0:
+                print("got here")
+                print("index=", index, "quantity=", quantity)
+                if self.board[1][abs(index)-3] == 1:
                     side = 1
-                    self.capture(self,player,side,abs(index)-2)
-                    return 1
-                else:
-                    self.board[1][abs(index)-2]+=1
-                    return 1
+                    numOpp = self.board[0][abs(index)-3]
+                    print("nummOpp = "+str(numOpp))
+                    help = abs(index)-3
+                    self.capture(player,side,help,numOpp)
+                return 1
                 #
                 #
         elif player.getNumber() == 2:
