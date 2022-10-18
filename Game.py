@@ -15,7 +15,8 @@ def Game(P1, P2):
             print(gameboard)
             index = P1.move()
         if(gameboard.isWinner()== True):
-            gameboard.addRemaning()
+            gameboard.addRemaining()
+            print(gameboard.findWinner())
             break
         print("Player 2")
         print(gameboard)
@@ -25,8 +26,8 @@ def Game(P1, P2):
             index = P2.move()
         if (gameboard.isWinner() == True):
             gameboard.addRemaining()
+            print(gameboard.findWinner())
             break
-            gameboard.findWinner()
 
 Game(player1, player2)
 

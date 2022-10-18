@@ -21,9 +21,9 @@ class Gameboard:
         else:
             return False
     def findWinner(self):
-        if self.ends[1]> self.ends[2]:
+        if self.ends[0]> self.ends[1]:
             return "Player 1 WINS"
-        elif self.ends[2]>self.ends[1]:
+        elif self.ends[1]>self.ends[0]:
             return "Player 2 WINS"
         else:
             return "Tie"
