@@ -91,8 +91,8 @@ class Gameboard:
                     print(self)
                     print("index=", index, "i=", i, "quantity=", quantity)
 
-                    if index <= len(self.board[1])-1:
-                        self.board[1][index] += 1
+                    if index < len(self.board[1])-1:
+                        self.board[1][index+1] += 1
                     elif index == len(self.board[1]):
                         self.ends[1] += 1
                     else:
