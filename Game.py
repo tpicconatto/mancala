@@ -31,4 +31,3 @@ def Game(P1, P2):
 
 Game(player1, player2)
 
-
