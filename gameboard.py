@@ -82,7 +82,9 @@ class Gameboard:
         print(self)
 
     def play(self, player, index, quantity):
-        if player.getNumber() == 1:  # for player 1
+        if player.getNumber() == 1:# for player 1
+            if (quantity)==0:
+                return -1
             ogIndex = index
             self.board[0][ogIndex] = 0
             index -= 1
@@ -125,6 +127,8 @@ class Gameboard:
                 #
                 #
         elif player.getNumber() == 2:
+            if (quantity)==0:
+                return -1
             ogIndex = index
             self.board[1][ogIndex] = 0
             if player.getNumber() == 2:  # for player 2
@@ -137,9 +141,10 @@ class Gameboard:
                     elif index == len(self.board[1]):
                         self.ends[1] += 1
                     else:
-                        if abs(index) > len(self.board[1]) + 1:
-                            self.board[1][len(self.board[1]) + 1] += 1
+                        if abs(index) > 12:
+
                             index = 0
+                            self.board[1][index] += 1
                         else:
                             self.board[0][abs(index)] += 1
                     index += 1
