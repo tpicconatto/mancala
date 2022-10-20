@@ -20,6 +20,7 @@ def Game(P1, P2):
             break
         print("Player 2")
         print(gameboard)
+        print("Player 2")
         index = P2.move()
         while gameboard.play(P2,index,gameboard.getValue(1,index))==-1:
             print(gameboard)
