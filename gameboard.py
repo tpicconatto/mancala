@@ -28,14 +28,13 @@ class Gameboard:
         else:
             return "Tie"
     def goAgain(self,index):
-        if index > len(self.board[1]):
+        if index == 7:
             return True
         elif index == -2:
             return True
         else:
             return False
-
-    def capture(self, player, side, index, numOpp):
+    def capture(self,player,side,index,numOpp):
         print("into capture")
         print(str(player.getNumber()))
         print(str(numOpp))
@@ -43,16 +42,16 @@ class Gameboard:
         if player.getNumber() == 1:
             if numOpp != 0:
                 print("into capture")
-                if side == 1:
+                if side==1:
                     print("into capture")
                     self.ends[0] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
                     self.board[0].insert(newIn, 0)
                     print(self)
-                    self.ends[0] += self.board[1][index]
+                    self.ends[0]+=self.board[1][index]
                     self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
+                    self.board[1].insert(index,0)
                     print(self)
                 else:
                     self.ends[0] += numOpp
@@ -74,50 +73,51 @@ class Gameboard:
                     self.ends[0] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
-                    self.board[1].insert(newIn, 0)
+                    self.board[1].insert(newIn, 1)
         print("finish capture")
         print(self)
 
+
     def play(self, player, index, quantity):
-        if player.getNumber() == 1:  # for player 1
+        if player.getNumber() == 1: #for player 1
             ogIndex = index
             self.board[0][ogIndex] = 0
-            index -= 1
-            for i in range(quantity):  # keeps going number of beads
+            index -=1
+            for i in range(quantity): #keeps going number of beads
                 print(self)
-                print("index=", index, "i=", i, "quantity=", quantity)
+                print("index=",index,"i=",i,"quantity=",quantity)
 
                 if index >= 0:
                     self.board[0][index] += 1
                 elif index == -1:
                     self.ends[0] += 1
                 else:
-                    if abs(index) >= len(self.board[1]):
-                        self.board[0][len(self.board[0]) - 1] += 1
+                    if abs(index)>=len(self.board[1]):
+                        self.board[0][len(self.board[0])-1] += 1
                         index = 0
                     else:
-                        self.board[1][abs(index) - 2] += 1
+                        self.board[1][abs(index)-2] += 1
                 index -= 1
             print(self)
-            print("index=", index, "quantity=", quantity)
+            print("index=",index, "quantity=", quantity)
             if self.goAgain(index):
                 return -1
-            # capture
+            #capture
             elif index >= 0:
-                if self.board[0][index + 1] == 1:
+                if self.board[0][index+1] == 1:
                     side = 0
-                    numOpp = self.board[1][index + 1]
-                    self.capture(self, player, side, index, numOpp)
+                    numOpp = self.board[1][index+1]
+                    self.capture(self,player,side,index,numOpp)
                 return 1
             elif index < 0:
                 print("got here")
                 print("index=", index, "quantity=", quantity)
-                if self.board[1][abs(index) - 3] == 1:
+                if self.board[1][abs(index)-3] == 1:
                     side = 1
-                    numOpp = self.board[0][abs(index) - 3]
-                    print("nummOpp = " + str(numOpp))
-                    help = abs(index) - 3
-                    self.capture(player, side, help, numOpp)
+                    numOpp = self.board[0][abs(index)-3]
+                    print("nummOpp = "+str(numOpp))
+                    help = abs(index)-3
+                    self.capture(player,side,help,numOpp)
                 return 1
                 #
                 #
@@ -125,30 +125,33 @@ class Gameboard:
             ogIndex = index
             self.board[1][ogIndex] = 0
             if player.getNumber() == 2:  # for player 2
+                odd = 0
+                index+=1
                 for i in range(quantity):  # keeps going number of beads
                     print(self)
                     print("index=", index, "i=", i, "quantity=", quantity)
 
-                    if index < len(self.board[1]) - 1:
-                        self.board[1][index + 1] += 1
+                    if index <= len(self.board[1])-1:
+                        self.board[1][index] += 1
                     elif index == len(self.board[1]):
                         self.ends[1] += 1
                     else:
-                        if abs(index) > len(self.board[1]) + 1:
-                            self.board[1][len(self.board[1]) + 1] += 1
+                        if abs(index) > len(self.board[1])*2+1:
                             index = 0
-                        else:
                             self.board[0][abs(index)] += 1
+                        elif index >len(self.board[1]):
+                            odd+=2
+                            self.board[0][abs(index)-odd] += 1
                     index += 1
                 print(self)
                 print("index=", index, "quantity=", quantity)
                 if self.goAgain(index):
                     return -1
                 elif index + 1 >= 0:
-                    # if self.board[1][index] == 0:
-                    side = 0
-                    # self.capture(self, player, side, index)
-                    return 1
+                    #if self.board[1][index] == 0:
+                        side = 0
+                        #self.capture(self, player, side, index)
+                        return 1
                 elif index + 1 < 0:
                     if self.board[0][abs(index) - 2] == 0:
                         side = 1
