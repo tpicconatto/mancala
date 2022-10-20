@@ -6,7 +6,7 @@ class Gameboard:
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
                stringV = stringV + " "+ str(self.board[i][j])
-            stringV = stringV + "\n"
+            stringV = stringV + "\n" + "  "
         stringV = stringV + "]"+str(self.ends[1])
         return stringV
     def getValue(self, a ,b):
