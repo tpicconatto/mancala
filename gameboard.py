@@ -170,9 +170,9 @@ class Gameboard:
                     elif index == len(self.board[1])-1:
                         self.ends[1] += 1
                     else:
-                        if abs(index) > len(self.board[1]) + 1:
-                            self.board[1][len(self.board[1]) + 1] += 1
-                            index = 0
+                        if abs(index) > 12:
+                            self.board[1][0]+=1
+                            index = 1
                         else:
                             num +=2
                             self.board[0][abs(index)-num] += 1
