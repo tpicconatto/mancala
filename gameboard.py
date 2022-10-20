@@ -3,11 +3,14 @@ class Gameboard:
     ends = [0,0]
     def __str__(self): #Prints the Board Out
         stringV = str(self.ends[0])+"["
+        num2 = 0
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-               stringV = stringV + " "+ str(self.board[i][j])
-            stringV = stringV + "\n" + "  "
-        stringV = stringV + "]"+str(self.ends[1])
+               stringV = stringV + " " + str(self.board[i][j])
+            if (num2 < 1):
+                stringV = stringV + "\n" + "  "
+                num2 = num2 + 1
+        stringV = stringV + " ]"+str(self.ends[1])
         return stringV
     def getValue(self, a ,b):
         return self.board[a][b]
@@ -28,7 +31,7 @@ class Gameboard:
         else:
             return "Tie"
     def goAgain(self,index):
-        if index == 6:
+        if index > len(self.board[1]):
             return True
         elif index == -2:
             return True
@@ -72,41 +75,6 @@ class Gameboard:
                 while numOpp in self.board[1]:
                     print("enter loop two")
                     self.ends[0] += numOpp
-                    newIn = self.board[1].index(numOpp)
-                    self.board[1].pop(newIn)
-                    self.board[1].insert(newIn, 0)
-        if player.getNumber() == 2:
-            if numOpp != 0:
-                print("into capture")
-                if side == 1:
-                    print("into capture")
-                    self.ends[1] += numOpp
-                    newIn = self.board[0].index(numOpp)
-                    self.board[0].pop(newIn)
-                    self.board[0].insert(newIn, 0)
-                    print(self)
-                    self.ends[1] += self.board[1][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
-                    print(self)
-                else:
-                    self.ends[1] += numOpp
-                    newIn = self.board[1].index(numOpp)
-                    self.board[1].pop(newIn)
-                    self.board[1].insert(newIn, 0)
-
-                    self.ends[1] += self.board[0][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
-                while numOpp in self.board[0]:
-                    print("enter loop")
-                    self.ends[1] += numOpp
-                    newIn = self.board[0].index(numOpp)
-                    self.board[0].pop(newIn)
-                    self.board[0].insert(newIn, 0)
-                while numOpp in self.board[1]:
-                    print("enter loop two")
-                    self.ends[1] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
                     self.board[1].insert(newIn, 0)
@@ -179,20 +147,15 @@ class Gameboard:
                 print("index=", index, "quantity=", quantity)
                 if self.goAgain(index):
                     return -1
-                elif index > 6:
-                    index = 12-index
-                    if self.board[0][index] == 1:
-                     print("got her >6")
-                     numOpp = self.board[1][index]
-                     side = 0
-                     self.capture(player, side, index,numOpp)
+                elif index + 1 >= 0:
+                    # if self.board[1][index] == 0:
+                    side = 0
+                    # self.capture(self, player, side, index)
                     return 1
-                elif index < 6:
-                    if self.board[1][index] == 1:
-                        print("got here")
-                        numOpp = self.board[0][index]
+                elif index + 1 < 0:
+                    if self.board[0][abs(index) - 2] == 0:
                         side = 1
-                        self.capture(player, side, index,numOpp)
+                        self.capture(self, player, side, abs(index) - 2)
                         return 1
                     else:
                         self.board[0][abs(index) - 2] += 1
