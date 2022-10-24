@@ -17,5 +17,7 @@ class Human(Player):
             hole = str(input("Please Enter Index of Hole: "))
             if hole in arr:
                 check = False
+            else:
+                print("You are an idiot enter 0-5")
         hole = int(hole)
         return hole
