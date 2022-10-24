@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 class Player(ABC):
     playernum = 0
+
     def __init__(self, playerNum):
         self.playerNum = playerNum
     def getNumber(self):

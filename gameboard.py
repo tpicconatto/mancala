@@ -3,11 +3,14 @@ class Gameboard:
     ends = [0,0]
     def __str__(self): #Prints the Board Out
         stringV = str(self.ends[0])+"["
+        num2 = 0
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-               stringV = stringV + " "+ str(self.board[i][j])
-            stringV = stringV + "\n" + "  "
-        stringV = stringV + "]"+str(self.ends[1])
+               stringV = stringV + " " + str(self.board[i][j])
+            if (num2 < 1):
+                stringV = stringV + "\n" + "  "
+                num2 = num2 + 1
+        stringV = stringV + " ]"+str(self.ends[1])
         return stringV
     def getValue(self, a ,b):
         return self.board[a][b]
@@ -27,23 +30,23 @@ class Gameboard:
             return "Player 2 WINS"
         else:
             return "Tie"
-    def goAgain(self,index):
-        if index == 6:
+    def goAgain(self,index): # determines if the current player goes again
+        if index > len(self.board[1]): # if player 2 gets to go again
             return True
-        elif index == -2:
+        elif index == -2: # if player 1 gets to go again
             return True
-        else:
+        else: # if the player's turn is over
             return False
 
-    def capture(self, player, side, index, numOpp):
+    def capture(self, player, side, index, numOpp): #proforms the capture function for player 1 and 2
         print("into capture")
         print(str(player.getNumber()))
         print(str(numOpp))
         print(str(index))
-        if player.getNumber() == 1:
+        if player.getNumber() == 1: # if its player 1s turn
             if numOpp != 0:
                 print("into capture")
-                if side == 1:
+                if side == 1: # if the stone landed on side index 1
                     print("into capture")
                     self.ends[0] += numOpp
                     newIn = self.board[0].index(numOpp)
@@ -54,7 +57,7 @@ class Gameboard:
                     self.board[1].pop(index)
                     self.board[1].insert(index, 0)
                     print(self)
-                else:
+                else: # if the stone landed on side index 0
                     self.ends[0] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
@@ -75,46 +78,13 @@ class Gameboard:
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
                     self.board[1].insert(newIn, 0)
-        if player.getNumber() == 2:
-            if numOpp != 0:
-                print("into capture")
-                if side == 1:
-                    print("into capture")
-                    self.ends[1] += numOpp
-                    newIn = self.board[0].index(numOpp)
-                    self.board[0].pop(newIn)
-                    self.board[0].insert(newIn, 0)
-                    print(self)
-                    self.ends[1] += self.board[1][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
-                    print(self)
-                else:
-                    self.ends[1] += numOpp
-                    newIn = self.board[1].index(numOpp)
-                    self.board[1].pop(newIn)
-                    self.board[1].insert(newIn, 0)
-
-                    self.ends[1] += self.board[0][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
-                while numOpp in self.board[0]:
-                    print("enter loop")
-                    self.ends[1] += numOpp
-                    newIn = self.board[0].index(numOpp)
-                    self.board[0].pop(newIn)
-                    self.board[0].insert(newIn, 0)
-                while numOpp in self.board[1]:
-                    print("enter loop two")
-                    self.ends[1] += numOpp
-                    newIn = self.board[1].index(numOpp)
-                    self.board[1].pop(newIn)
-                    self.board[1].insert(newIn, 0)
         print("finish capture")
         print(self)
 
     def play(self, player, index, quantity):
-        if player.getNumber() == 1:  # for player 1
+        if player.getNumber() == 1:# for player 1
+            if (quantity)==0: # if there are no stones in the hole
+                return -1
             ogIndex = index
             self.board[0][ogIndex] = 0
             index -= 1
@@ -122,11 +92,11 @@ class Gameboard:
                 print(self)
                 print("index=", index, "i=", i, "quantity=", quantity)
 
-                if index >= 0:
+                if index >= 0: # if the index is pos (on player 1s side)
                     self.board[0][index] += 1
-                elif index == -1:
+                elif index == -1: # if we are in an end
                     self.ends[0] += 1
-                else:
+                else: # if the index is on player 2s side
                     if abs(index) >= len(self.board[1]):
                         self.board[0][len(self.board[0]) - 1] += 1
                         index = 0
@@ -154,12 +124,11 @@ class Gameboard:
                     help = abs(index) - 3
                     self.capture(player, side, help, numOpp)
                 return 1
-                #
-                #
-        elif player.getNumber() == 2:
+        elif player.getNumber() == 2: # for player 2
+            if (quantity)==0: # if there are no stones in the hole
+                return -1
             ogIndex = index
             self.board[1][ogIndex] = 0
-            num = -1
             if player.getNumber() == 2:  # for player 2
                 for i in range(quantity):  # keeps going number of beads
                     print(self)
@@ -167,41 +136,36 @@ class Gameboard:
 
                     if index < len(self.board[1]) - 1:
                         self.board[1][index + 1] += 1
-                    elif index == len(self.board[1])-1:
+                    elif index == len(self.board[1]): # if player 2 lands in the mancala
                         self.ends[1] += 1
                     else:
                         if abs(index) > 12:
-                            self.board[1][0]+=1
-                            index = 1
+
+                            index = 0
+                            self.board[1][index] += 1
                         else:
-                            num +=2
-                            self.board[0][abs(index)-num] += 1
+                            self.board[0][abs(index)] += 1
                     index += 1
                 print(self)
                 print("index=", index, "quantity=", quantity)
                 if self.goAgain(index):
                     return -1
-                elif index > 6:
-                    index = 12-index
-                    if self.board[0][index] == 1:
-                     print("got her >6")
-                     numOpp = self.board[1][index]
-                     side = 0
-                     self.capture(player, side, index,numOpp)
+                elif index + 1 >= 0:
+                    # if self.board[1][index] == 0:
+                    side = 0
+                    # self.capture(self, player, side, index)
                     return 1
-                elif index < 6:
-                    if self.board[1][index] == 1:
-                        print("got here")
-                        numOpp = self.board[0][index]
+                elif index + 1 < 0:
+                    if self.board[0][abs(index) - 2] == 0:
                         side = 1
-                        self.capture(player, side, index,numOpp)
+                        self.capture(self, player, side, abs(index) - 2)
                         return 1
                     else:
                         self.board[0][abs(index) - 2] += 1
                         return 1
 
     def addRemaining(self):  # Adds up all remaining points after game ends
-            for i in range(len(self.board[0])):
+            for i in range(len(self.board[0])): # adds up all the stones in the mancala for player 1
                 self.ends[0] = self.ends[0] + self.board[0][i]
-            for j in range(len(self.board[1])):
+            for j in range(len(self.board[1])): # adds up all the stones in the mancala for player 2
                 self.ends[1] = self.ends[1] + self.board[0][j]
