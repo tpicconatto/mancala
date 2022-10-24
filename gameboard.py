@@ -33,10 +33,10 @@ class Gameboard:
         else:
             return False
 
-    def capture(self, player, side, index, numOpp):
-        if player.getNumber() == 1:
-            if numOpp != 0:
-                if side == 1:
+    def capture(self, player, side, index, numOpp): #Handles Capture according to variation
+        if player.getNumber() == 1: #player 1 gets to capture
+            if numOpp != 0: #has something to capture
+                if side == 1: #empties landing index
                     self.ends[0] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
@@ -46,7 +46,7 @@ class Gameboard:
                     self.board[1].pop(index)
                     self.board[1].insert(index, 0)
                     print(self)
-                else:
+                else: #empties landing index (other side)
                     self.ends[0] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
@@ -56,18 +56,20 @@ class Gameboard:
                     self.board[1].pop(index)
                     self.board[1].insert(index, 0)
                 while numOpp in self.board[0]:
+                    #captures all holes containing same number of stones (on top side)
                     self.ends[0] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
                     self.board[0].insert(newIn, 0)
                 while numOpp in self.board[1]:
+                    #captures all holes containing same number of stones (on bottom side)
                     self.ends[0] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
                     self.board[1].insert(newIn, 0)
-        if player.getNumber() == 2:
-            if numOpp != 0:
-                if side == 1:
+        if player.getNumber() == 2: #player 2
+            if numOpp != 0: #has something to capture
+                if side == 1: #empties landing index
                     self.ends[1] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
@@ -77,7 +79,7 @@ class Gameboard:
                     self.board[1].pop(index)
                     self.board[1].insert(index, 0)
                     print(self)
-                else:
+                else: #empties landing index(other side)
                     self.ends[1] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
@@ -87,11 +89,13 @@ class Gameboard:
                     self.board[1].pop(index)
                     self.board[1].insert(index, 0)
                 while numOpp in self.board[0]:
+                    # captures all holes containing same number of stones (on top side)
                     self.ends[1] += numOpp
                     newIn = self.board[0].index(numOpp)
                     self.board[0].pop(newIn)
                     self.board[0].insert(newIn, 0)
                 while numOpp in self.board[1]:
+                    # captures all holes containing same number of stones (on bottom side)
                     self.ends[1] += numOpp
                     newIn = self.board[1].index(numOpp)
                     self.board[1].pop(newIn)
