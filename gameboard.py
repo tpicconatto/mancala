@@ -9,21 +9,21 @@ class Gameboard:
             stringV = stringV + "\n" + "  "
         stringV = stringV + "]"+str(self.ends[1])
         return stringV
-    def getValue(self, a ,b):
+    def getValue(self, a ,b): #Returns quantity of beads in specific hole on board
         return self.board[a][b]
     def isWinner(self): #Determines if someone won
-        if self.board[0].count(0) == len(self.board[0]):
+        if self.board[0].count(0) == len(self.board[0]): #if there are no more beads in side 0 there is a winner
             return True
-        elif self.board[1].count(0) == len(self.board[1]):
+        elif self.board[1].count(0) == len(self.board[1]): #if there are no more beads in side 1 there is a winner
             return True
-        else:
+        else: #if there are beads on both sides keep playing
             return False
-    def findWinner(self):
-        if self.ends[0]> self.ends[1]:
+    def findWinner(self): #finds which player won the game
+        if self.ends[0]> self.ends[1]: #if the mancala of player 1 had more beads then player 2 then print player 1 wins
             return "Player 1 WINS"
-        elif self.ends[1]>self.ends[0]:
+        elif self.ends[1]>self.ends[0]:#if the mancala of player 2 had more beads then player 1 then print player 2 wins
             return "Player 2 WINS"
-        else:
+        else: #if they are equal print it's a tie
             return "Tie"
     def goAgain(self,index):
         if index == 6:
