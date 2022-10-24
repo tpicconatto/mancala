@@ -22,7 +22,7 @@ class Gameboard:
         if self.ends[0]> self.ends[1]: #if the mancala of player 1 has more beads than player 2 then print player 1 wins
             return "Player 1 WINS"
         elif self.ends[1]>self.ends[0]:#if the mancala of player 2 has more beads than player 1 then print player 2 wins
-            return "Player 2 WINS"
+            return "Player 2 WINS"+str(self.ends[0])+","+str(self.ends[1])
         else: #if they are equal print it's a tie
             return "Tie"
     def goAgain(self,index): #determines if the player landed in their mancala and can go again
@@ -115,13 +115,14 @@ class Gameboard:
                 elif index == -1:
                     self.ends[0] += 1
                 else:
-                    if abs(index) >= len(self.board[1]):
-                        self.board[0][len(self.board[0]) - 1] += 1
-                        index = 0
+                    if abs(index) > 7:
+                        self.board[0][5] += 1
+                        index = 5
                     else:
                         self.board[1][abs(index) - 2] += 1
                 index -= 1
             print(self)
+            print(index)
             if self.goAgain(index):
                 return -1
             # capture
@@ -180,7 +181,9 @@ class Gameboard:
                     return 1
 
     def addRemaining(self):  # Adds up all remaining points after game ends
-            for i in range(len(self.board[0])):
+            for i in range(len(self.board[0])): #adds the remaining stone for p1
                 self.ends[0] = self.ends[0] + self.board[0][i]
-            for j in range(len(self.board[1])):
-                self.ends[1] = self.ends[1] + self.board[0][j]
+                self.board[0][i]=0
+            for j in range(len(self.board[1])): #adds the remaining stones for P1
+                self.ends[1] = self.ends[1] + self.board[1][j]
+                self.board[1][j] = 0
