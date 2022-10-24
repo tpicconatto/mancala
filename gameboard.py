@@ -195,10 +195,7 @@ class Gameboard:
                         numOpp = self.board[0][index]
                         side = 1
                         self.capture(player, side, index,numOpp)
-                        return 1
-                    else:
-                        self.board[0][abs(index) - 2] += 1
-                        return 1
+                    return 1
 
     def addRemaining(self):  # Adds up all remaining points after game ends
             for i in range(len(self.board[0])):
