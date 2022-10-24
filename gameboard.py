@@ -26,9 +26,9 @@ class Gameboard:
         else: #if they are equal print it's a tie
             return "Tie"
     def goAgain(self,index): #determines if the player landed in their mancala and can go again
-        if index == 6:
+        if index == 6: #if player lands in index of 6 then go again
             return True
-        elif index == -2:
+        elif index == -2: #if player lands in inex of -2 then go again
             return True
         else:
             return False
