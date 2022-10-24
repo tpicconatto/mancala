@@ -138,11 +138,11 @@ class Gameboard:
             if self.goAgain(index):
                 return -1
             # capture
-            elif index >= 0:
+            elif index >= -1:
                 if self.board[0][index + 1] == 1:
                     side = 0
                     numOpp = self.board[1][index + 1]
-                    self.capture(self, player, side, index, numOpp)
+                    self.capture(player, side, index, numOpp)
                 return 1
             elif index < 0:
                 print("got here")
