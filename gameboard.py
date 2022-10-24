@@ -53,8 +53,8 @@ class Gameboard:
                     self.board[1].insert(newIn, 0)
 
                     self.ends[0] += self.board[0][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
+                    self.board[0].pop(index)
+                    self.board[0].insert(index, 0)
                 while numOpp in self.board[0]:
                     #captures all holes containing same number of stones (on top side)
                     self.ends[0] += numOpp
@@ -86,8 +86,8 @@ class Gameboard:
                     self.board[1].insert(newIn, 0)
 
                     self.ends[1] += self.board[0][index]
-                    self.board[1].pop(index)
-                    self.board[1].insert(index, 0)
+                    self.board[0].pop(index)
+                    self.board[0].insert(index, 0)
                 while numOpp in self.board[0]:
                     # captures all holes containing same number of stones (on top side)
                     self.ends[1] += numOpp
@@ -128,7 +128,8 @@ class Gameboard:
             elif index >= -1:
                 if self.board[0][index + 1] == 1:
                     side = 0
-                    numOpp = self.board[1][index + 1]
+                    index+=1
+                    numOpp = self.board[1][index]
                     self.capture(player, side, index, numOpp)
                 return 1
             elif index < 0:
