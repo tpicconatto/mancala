@@ -11,5 +11,11 @@ class Player(ABC):
         pass
 class Human(Player):
     def move(self):
-        hole = int(input("Please Enter Index of Hole: "))
+        arr = ["0", "1", "2", "3", "4", "5"]
+        check = True
+        while (check):
+            hole = str(input("Please Enter Index of Hole: "))
+            if hole in arr:
+                check = False
+        hole = int(hole)
         return hole
