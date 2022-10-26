@@ -20,9 +20,9 @@ class Gameboard:
             return False
     def findWinner(self): #finds which player won the game
         if self.ends[0]> self.ends[1]: #if the mancala of player 1 has more beads than player 2 then print player 1 wins
-            return "Player 1 WINS " + str(self.ends[0])+" to "+str(self.ends[1])
+            return "Player 1 WINS: " + str(self.ends[0])+" to "+str(self.ends[1])
         elif self.ends[1]>self.ends[0]:#if the mancala of player 2 has more beads than player 1 then print player 2 wins
-            return "Player 2 WINS "+str(self.ends[0])+" to "+str(self.ends[1])
+            return "Player 2 WINS: "+str(self.ends[0])+" to "+str(self.ends[1])
         else: #if they are equal print it's a tie
             return "Tie " +str(self.ends[0])+" to "+str(self.ends[1])
     def goAgain(self,index): #determines if the player landed in their mancala and can go again
