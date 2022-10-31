@@ -152,28 +152,28 @@ class Gameboard:
 
                 if index < len(self.board[1]) - 1: #if index is within this sides boundaries, add 1 to the next hole
                     self.board[1][index + 1] += 1
-                elif index == len(self.board[1])-1:
+                elif index == len(self.board[1])-1: #if it is one index past the length of this side, add to the mancala
                     self.ends[1] += 1
                 else:
-                    if abs(index) > 12:
+                    if abs(index) > 12: #if it is past the boundaries on the other side, go back to the original side at index 0
                         self.board[1][0]+=1
                         index = 1
-                    else:
+                    else: #is it is past one index above the length, switch to other board and add to corresponding index
                         num +=2
                         self.board[0][abs(index)-num] += 1
                 index += 1
             print(self)
-            if self.goAgain(index):
+            if self.goAgain(index): #if go again true return -1
                 return -1
-            elif index > 6:
+            elif index > 6: #if past boundaries of side check if should capture and return 1
                 index = 12-index
-                if self.board[0][index] == 1:
+                if self.board[0][index] == 1: #check if should capture
                     numOpp = self.board[1][index]
                     side = 0
                     self.capture(player, side, index,numOpp)
                 return 1
-            elif index < 6:
-                if self.board[1][index] == 1:
+            elif index < 6: #if index within boundaries check if should capture and return 1
+                if self.board[1][index] == 1: #check if should capture
                     numOpp = self.board[0][index]
                     side = 1
                     self.capture(player, side, index,numOpp)
