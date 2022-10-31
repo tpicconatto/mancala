@@ -13,11 +13,11 @@ class Human(Player):
     def move(self):
         arr = ["0", "1", "2", "3", "4", "5"]
         check = True
-        while (check):
+        while (check): # while check is true
             hole = str(input("Please Enter Index of Hole: "))
-            if hole in arr:
+            if hole in arr: # if the hole is in the array
                 check = False
-            else:
-                print("You are an idiot enter 0-5")  # funny, but not the most user friendly
+            else: # if the user entered a number out of bounds
+                print("Enter number 0-5")
         hole = int(hole)
         return hole
