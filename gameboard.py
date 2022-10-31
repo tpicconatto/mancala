@@ -3,9 +3,9 @@ class Gameboard:
     ends = [0,0]
     def __str__(self): #Prints the Board Out
         stringV = str(self.ends[0])+"["
-        for i in range(len(self.board)):
+        for i in range(len(self.board)): # these 2 4 loops go through the board to print it out
             for j in range(len(self.board[i])):
-               stringV = stringV + " "+ str(self.board[i][j])
+               stringV = stringV + " " + str(self.board[i][j])
             stringV = stringV + "\n" + "  "
         stringV = stringV + "]"+str(self.ends[1])
         return stringV
