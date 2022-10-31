@@ -28,9 +28,9 @@ class Gameboard:
     def goAgain(self,index): #determines if the player landed in their mancala and can go again
         if index == 6: #if player lands in index of 6 then go again
             return True
-        elif index == -2: #if player lands in inex of -2 then go again
+        elif index == -2: #if player lands in index of -2 then go again
             return True
-        else:
+        else: #if player lands in any other index, they dont get to go again
             return False
 
     def capture(self, player, side, index, numOpp): #Handles Capture according to variation
@@ -146,39 +146,38 @@ class Gameboard:
             ogIndex = index
             self.board[1][ogIndex] = 0
             num = -1
-            if player.getNumber() == 2:  # for player 2
-                for i in range(quantity):  # keeps going number of beads
-                    print(self)
-                    print("index=", i, "quantity=", quantity)
-
-                    if index < len(self.board[1]) - 1:
-                        self.board[1][index + 1] += 1
-                    elif index == len(self.board[1])-1:
-                        self.ends[1] += 1
-                    else:
-                        if abs(index) > 12:
-                            self.board[1][0]+=1
-                            index = 1
-                        else:
-                            num +=2
-                            self.board[0][abs(index)-num] += 1
-                    index += 1
+            for i in range(quantity):  # keeps going number of beads
                 print(self)
-                if self.goAgain(index):
-                    return -1
-                elif index > 6:
-                    index = 12-index
-                    if self.board[0][index] == 1:
-                     numOpp = self.board[1][index]
-                     side = 0
-                     self.capture(player, side, index,numOpp)
-                    return 1
-                elif index < 6:
-                    if self.board[1][index] == 1:
-                        numOpp = self.board[0][index]
-                        side = 1
-                        self.capture(player, side, index,numOpp)
-                    return 1
+                print("index=", i, "quantity=", quantity)
+
+                if index < len(self.board[1]) - 1: #if index is within this sides boundaries, add 1 to the next hole
+                    self.board[1][index + 1] += 1
+                elif index == len(self.board[1])-1:
+                    self.ends[1] += 1
+                else:
+                    if abs(index) > 12:
+                        self.board[1][0]+=1
+                        index = 1
+                    else:
+                        num +=2
+                        self.board[0][abs(index)-num] += 1
+                index += 1
+            print(self)
+            if self.goAgain(index):
+                return -1
+            elif index > 6:
+                index = 12-index
+                if self.board[0][index] == 1:
+                    numOpp = self.board[1][index]
+                    side = 0
+                    self.capture(player, side, index,numOpp)
+                return 1
+            elif index < 6:
+                if self.board[1][index] == 1:
+                    numOpp = self.board[0][index]
+                    side = 1
+                    self.capture(player, side, index,numOpp)
+                return 1
 
     def addRemaining(self):  # Adds up all remaining points after game ends
             for i in range(len(self.board[0])): #adds the remaining stone for p1
