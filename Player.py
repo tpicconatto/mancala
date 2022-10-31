@@ -18,6 +18,6 @@ class Human(Player):
             if hole in arr:
                 check = False
             else:
-                print("You are an idiot enter 0-5")
+                print("You are an idiot enter 0-5")  # funny, but not the most user friendly
         hole = int(hole)
         return hole
