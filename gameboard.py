@@ -142,7 +142,7 @@ class Gameboard:
                 return 1
                 #
                 #
-        elif player.getNumber() == 2:
+        elif player.getNumber() == 2: #if player is player 2
             ogIndex = index
             self.board[1][ogIndex] = 0
             num = -1
